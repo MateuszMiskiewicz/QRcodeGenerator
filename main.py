@@ -17,6 +17,7 @@ version, ecc_len = qr_version(bits)
 ecc = rs_encode(data, ecc_len, log, exp)
 
 stream = bits + bytes_to_bitstream(ecc)
+
 board, reserved = mat.build_base(version)
 
 mat.stream_to_board(board, reserved, stream)
