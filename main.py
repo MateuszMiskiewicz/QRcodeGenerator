@@ -2,27 +2,33 @@ from gf_256 import tables
 from reed_solomon import rs_encode
 from data_encode import word_to_stream, word_to_chunks, qr_version, bytes_to_bitstream
 import matrix as mat
-import format_info as fi
 import display
+import gui
 
 
 log, exp = tables()
 
-text = "youtube.com"
-bits = word_to_stream(text)
-data = word_to_chunks(bits)
 
-version, ecc_len = qr_version(bits)
+def core_logic(text):
 
-ecc = rs_encode(data, ecc_len, log, exp)
+    bits = word_to_stream(text)
+    version, ecc_len = qr_version(bits)
 
-stream = bits + bytes_to_bitstream(ecc)
+    if version is None:
+        print("Tekst zbyt długi!")
+        return
 
-board, reserved = mat.build_base(version)
+    data_chunks = word_to_chunks(bits)
+    ecc = rs_encode(data_chunks, ecc_len, log, exp)
+    full_stream = bits + bytes_to_bitstream(ecc)
 
-mat.stream_to_board(board, reserved, stream)
-mat.apply_mask(board, reserved)
+    board, reserved = mat.build_base(version)
+    mat.stream_to_board(board, reserved, full_stream)
 
-fmt = fi.make_format_bits("M", 0)
-fi.place_format_info(board, reserved, fmt)
-display.display(board)
+    final_board, mask_idx = mat.apply_best_mask(board, reserved, version, "M")
+
+    display.display(final_board)
+
+
+if __name__ == "__main__":
+    gui.start_app(core_logic)
