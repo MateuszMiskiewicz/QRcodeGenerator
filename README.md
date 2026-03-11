@@ -2,7 +2,7 @@
 
 A fully functional QR Code generator (Versions 1-5) implemented from scratch in pure Python. This project was developed to explore the internal mechanics of the ISO/IEC 18004 standard, including Galois Field theory, Reed-Solomon error correction, and matrix masking algorithms.
 
-##Features
+## Features
 * **Byte Encoding:** Converts raw text/URLs into a valid QR bitstream.
 * **Error Correction (ECC):** Full implementation of Reed-Solomon encoding to ensure data integrity even if the code is partially damaged.
 * **Smart Masking:** Implements all 8 standard QR masks with an automated **Penalty Scoring** system (Rules N1-N4) to select the most readable pattern.
@@ -11,7 +11,7 @@ A fully functional QR Code generator (Versions 1-5) implemented from scratch in 
 
 
 
-##Project Structure
+## Project Structure
 The project is modularized to reflect the stages of QR generation:
 * `gf_256.py` – $GF(2^8)$ Galois Field arithmetic (log/exp tables).
 * `reed_solomon.py` – Polynomial generation and ECC codeword calculation.
@@ -20,7 +20,7 @@ The project is modularized to reflect the stages of QR generation:
 * `gui.py` – The Tkinter-based input window.
 * `display.py` – Visual rendering of the final QR matrix using a Tkinter Canvas.
 
-##Installation & Usage
+## Installation & Usage
 
 1. **Clone the repository:**
    ```bash
