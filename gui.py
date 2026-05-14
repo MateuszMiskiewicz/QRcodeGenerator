@@ -3,7 +3,6 @@ from tkinter import messagebox
 
 
 def start_app(on_generate_callback):
-    """Uruchamia okno wpisywania danych."""
     root = tk.Tk()
     root.title("Generator QR")
     root.geometry("400x150")
@@ -22,7 +21,6 @@ def start_app(on_generate_callback):
             messagebox.showwarning("Błąd", "Pole nie może być puste!")
             return
 
-        # Zamykamy okno wpisywania i przekazujemy tekst do main
         root.withdraw()
         on_generate_callback(text)
         root.destroy()
